@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infinite | Enterprise AI Execution</title>
+<meta name="description" content="Infinite is an Enterprise AI Execution company — operationalizing AI across applications, platforms, data, processes and workflows. #RealizeTheAIPromise">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="assets/css/styles-master.css">
+<script>/* apply saved theme before paint — default is dark */(function(){try{if(localStorage.getItem('infinite-theme')==='light')document.documentElement.classList.add('light');}catch(e){}})();</script>
+</head>
+<body>
+
+<!-- ============ Preloader (loading animation) ============ -->
+<div class="preloader" id="preloader" role="progressbar" aria-label="Loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+  <div class="preloader__lead" id="preloadLead" style="--p:0">
+    <div class="preloader__mark">
+      <span class="preloader__sq"></span>
+      <span class="preloader__pct" id="preloadPct">0%</span>
+    </div>
+    <span class="preloader__stem"></span>
+    <span class="preloader__bar"></span>
+  </div>
+</div>
+<script>
+(function(){
+  var pre = document.getElementById('preloader');
+  if(!pre) return;
+  var lead  = document.getElementById('preloadLead');
+  var pctEl = document.getElementById('preloadPct');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.documentElement.classList.add('preloading');
+  var DUR = reduce ? 350 : 2000;
+  var start = null, done = false;
+  function smooth(t){ return t*t*(3-2*t); }          // ease-in-out
+  function finish(){
+    if(done) return; done = true;
+    pre.classList.add('is-done');
+    document.documentElement.classList.remove('preloading');
+    setTimeout(function(){ if(pre && pre.parentNode) pre.parentNode.removeChild(pre); }, 700);
+  }
+  function frame(ts){
+    if(start === null) start = ts;
+    var t = Math.min((ts - start) / DUR, 1);
+    var p = smooth(t);
+    if(lead) lead.style.setProperty('--p', p.toFixed(4));
+    var n = Math.round(p * 100);
+    if(pctEl) pctEl.textContent = n + '%';
+    pre.setAttribute('aria-valuenow', n);
+    if(t < 1){ requestAnimationFrame(frame); } else { setTimeout(finish, 200); }
+  }
+  requestAnimationFrame(frame);
+  setTimeout(finish, DUR + 3000);                     // hard fallback — never trap the page
+})();
+</script>
+
+<!-- Global noise + gradient-ball backdrop -->
+<div class="bg-fx" aria-hidden="true">
+  <div class="ball ball--lightblue"></div>
+  <div class="ball ball--blue"></div>
+  <div class="ball ball--black"></div>
+</div>
+
+<!-- ============ Rebounce / overscroll wrapper ============ -->
+<div class="rebounce-effect">
+<div class="page-wrapper" id="pageWrapper">
+
+<!-- ============ Announcement banner ============ -->
+<div class="pencil" id="pencil">
+  <div class="pencil__inner">
+    <span class="pencil__tag">New</span>
+    <span>Realize the AI promise — explore Infinite&rsquo;s 2026 Enterprise AI Execution report.</span>
+    <a href="#" target="_self">
+      Read more
+      <svg class="pencil__arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <button class="pencil__close" id="pencilClose" aria-label="Dismiss">×</button>
+  </div>
+</div>
+
+<!-- ============ Navbar ============ -->
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo" aria-label="Infinite home">
+      <span class="brand">
+        <img class="brand__logo brand__logo--dark" src="assets/img/infinite-logo-dark.svg" alt="Infinite">
+        <img class="brand__logo brand__logo--light" src="assets/img/infinite-logo-light.svg" alt="Infinite">
+      </span>
+    </a>
+
+    <nav class="nav__menu">
+      <!-- What We Do -->
+      <div class="nav__item" data-mega>
+        <span class="nav__link" data-shuffle>What We Do <span class="nav__tog" aria-hidden="true"></span></span>
+        <div class="mega">
+          <div class="mega__grid" style="grid-template-columns:repeat(3,1fr)">
+            <div class="mega__col">
+              <h4>Build</h4>
+              <a class="mega__link" href="#services"><b>Enterprise AI</b><span>AI in business-critical applications</span></a>
+              <a class="mega__link" href="#services"><b>AI-Augmented Engineering</b><span>Faster, higher-quality delivery</span></a>
+              <a class="mega__link" href="#services"><b>Enterprise Cloud</b><span>Intelligent development ecosystems</span></a>
+            </div>
+            <div class="mega__col">
+              <h4>Data &amp; Platforms</h4>
+              <a class="mega__link" href="#services"><b>AI-Ready Data Foundation</b><span>Trusted, connected data ecosystems</span></a>
+              <a class="mega__link" href="#services"><b>Intelligent Enterprise Platforms</b><span>AI-powered modernization</span></a>
+            </div>
+            <div class="mega__col">
+              <h4>Trust</h4>
+              <a class="mega__link" href="#services"><b>AI Assurance</b><span>Governance, observability, compliance</span></a>
+              <a class="mega__link" href="#services"><b>Cyber Resilience</b><span>Resilient cybersecurity for AI</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Who We Serve -->
+      <div class="nav__item" data-mega>
+        <span class="nav__link" data-shuffle>Who We Serve <span class="nav__tog" aria-hidden="true"></span></span>
+        <div class="mega">
+          <div class="mega__grid" style="grid-template-columns:repeat(2,1fr)">
+            <div class="mega__col">
+              <h4>By Industry</h4>
+              <a class="mega__link simple" href="#"><b>Financial Services</b></a>
+              <a class="mega__link simple" href="#"><b>Healthcare &amp; Life Sciences</b></a>
+              <a class="mega__link simple" href="#"><b>Manufacturing</b></a>
+              <a class="mega__link simple" href="#"><b>Retail &amp; Consumer</b></a>
+            </div>
+            <div class="mega__col">
+              <h4>By Function</h4>
+              <a class="mega__link simple" href="#"><b>Operations</b></a>
+              <a class="mega__link simple" href="#"><b>Customer Experience</b></a>
+              <a class="mega__link simple" href="#"><b>Finance &amp; Risk</b></a>
+              <a class="mega__link simple" href="#"><b>Engineering</b></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav__item"><a class="nav__link" href="#" data-shuffle>Partnerships</a></div>
+      <div class="nav__item"><a class="nav__link" href="#" data-shuffle>Why Infinite</a></div>
+      <div class="nav__item"><a class="nav__link" href="#" data-shuffle>About</a></div>
+    </nav>
+
+    <div class="nav__spacer"></div>
+    <div class="nav__cta">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark and light mode" title="Toggle theme">
+        <svg class="theme-toggle__sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.7"/><path d="M12 2.5v2.2M12 19.3v2.2M4.4 4.4l1.6 1.6M18 18l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.4 19.6l1.6-1.6M18 6l1.6-1.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <svg class="theme-toggle__moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.5 14.3A8.2 8.2 0 1 1 9.7 3.5a6.6 6.6 0 0 0 10.8 10.8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+      </button>
+      <a class="btn btn--ghost" href="#">Contact</a>
+      <a class="btn btn--blue" href="#services"><span data-stagger>Operationalize AI</span></a>
+      <button class="nav__burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ Mobile nav ============ -->
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav__head">
+    <a href="/" class="nav__logo"><span class="brand"><img class="brand__logo brand__logo--dark" src="assets/img/infinite-logo-dark.svg" alt="Infinite"><img class="brand__logo brand__logo--light" src="assets/img/infinite-logo-light.svg" alt="Infinite"></span></a>
+    <button class="mobile-nav__close" id="mobileClose" aria-label="Close">×</button>
+  </div>
+  <div class="m-group"><button>What We Do <span>+</span></button><div class="m-group__body"><a href="#services">Enterprise AI</a><a href="#services">AI-Ready Data Foundation</a><a href="#services">Intelligent Enterprise Platforms</a><a href="#services">AI Assurance</a><a href="#services">AI-Augmented Engineering</a><a href="#services">Enterprise Cloud</a><a href="#services">Cyber Resilience</a></div></div>
+  <div class="m-group"><button>Who We Serve <span>+</span></button><div class="m-group__body"><a href="#">Financial Services</a><a href="#">Healthcare &amp; Life Sciences</a><a href="#">Manufacturing</a><a href="#">Retail &amp; Consumer</a><a href="#">Operations</a><a href="#">Customer Experience</a></div></div>
+  <a class="m-solo" href="#">Partnerships</a>
+  <a class="m-solo" href="#">Why Infinite</a>
+  <a class="m-solo" href="#">About</a>
+  <div class="mobile-nav__cta">
+    <a class="btn btn--ghost btn--lg" href="#">Contact</a>
+    <a class="btn btn--blue btn--lg" href="#services">Operationalize AI</a>
+  </div>
+</div>
+
+<main>
+<!-- ============ SCROLL 1 — HERO ============ -->
+<section class="hero">
+  <div class="hero__bg"><div class="hero__grid"></div><img src="assets/img/gradient.png" alt=""></div>
+  <div class="container hero__inner">
+    <span class="eyebrow" data-scramble>Enterprise AI Execution</span>
+    <h1 class="hero__title" data-hero-reveal><span class="hero__title-line1">AI Adoption Doesn&rsquo;t Create Value,</span><br>Operationalizing AI Does.</h1>
+    <div class="hero__tag" data-scramble>#RealizeTheAIPromise</div>
+    <p class="hero__sub">The race isn&rsquo;t to add more AI. It&rsquo;s to embed intelligence into the core of your enterprise.</p>
+    <div class="hero__cta">
+      <a class="btn btn--blue btn--lg" href="#services"><span data-stagger>Operationalize AI</span> <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Logo marquee ============ -->
+<section class="marquee">
+  <div class="marquee__label">Trusted by enterprise leaders worldwide</div>
+  <div class="marquee__track" id="marquee">
+    <span class="mlogo">Northwind</span>
+    <span class="mlogo">Acme Corp</span>
+    <span class="mlogo">Globex</span>
+    <span class="mlogo">Initech</span>
+    <span class="mlogo">Vandelay</span>
+    <span class="mlogo">Hooli</span>
+    <span class="mlogo">Soylent</span>
+    <span class="mlogo">Umbrella</span>
+  </div>
+</section>
+
+<!-- ============ SCROLL 2 — WHAT WE DO ============ -->
+<section class="section statement">
+  <div class="container">
+    <div class="statement__inner">
+      <span class="eyebrow" data-scramble>What We Do</span>
+      <p class="statement__big reveal">Infinite is an Enterprise AI Execution company, <span class="kw kw--1"><span class="kw__ico" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M9 1.5 3.5 9H7l-1 5.5L12.5 7H9l1-5.5Z" fill="currentColor"/></svg></span><mark class="kw__mark">operationalizing AI</mark></span>, infusing AI into applications, platforms, data, processes, and workflows. We&rsquo;re helping businesses <span class="kw kw--2"><span class="kw__ico" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><mark class="kw__mark">move AI off the sideline</mark></span>, making it work for them, <span class="kw kw--3"><span class="kw__ico" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M2 11l4-4 3 2 5-6M11 3h3v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><mark class="kw__mark">turning opportunities into outcomes</mark></span>.</p>
+      <p class="statement__kicker reveal">Because intelligence only matters when it changes the way we work.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCROLL 3 — SERVICES ============ -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="services__head">
+      <span class="eyebrow" data-scramble>Services</span>
+      <h2 class="h2" style="margin-top:1rem" data-reveal-lines>Modernizing the Enterprise, Means Infusing AI in Everything.</h2>
+      <p class="lead reveal">AI doesn&rsquo;t transform businesses in isolation. That&rsquo;s why our capabilities are designed to work together, helping you operationalize AI across every layer.</p>
+    </div>
+    <div class="tl" id="svcTimeline">
+      <span class="tl__spine" aria-hidden="true"><span class="tl__fill" id="tlFill"></span><span class="tl__node" id="tlNode"></span></span>
+
+      <!-- 01 -->
+      <div class="tl__item tl__item--r reveal">
+        <article class="service">
+          <div class="service__head"><span class="service__num">01</span><h3 class="service__title" data-shuffle>Enterprise AI</h3></div>
+          <p class="service__desc">Embed AI into business-critical applications, processes and experiences to drive productivity, efficiency and growth.</p>
+          <div class="service__viz">
+            <svg class="iso" viewBox="0 0 240 168" fill="none">
+              <g stroke="#33455f" stroke-width="1"><path d="M120 92 L190 118 L120 144 L50 118 Z"/><path d="M85 105 L155 131"/><path d="M155 105 L85 131"/><path d="M120 92 L120 144"/></g>
+              <g class="a-float" stroke="#298dff" stroke-width="1.5"><path d="M120 44 L148 58 L120 72 L92 58 Z"/><path d="M92 58 L92 78 L120 92 L148 78 L148 58"/><path d="M120 72 L120 92"/></g>
+              <circle class="a-pulse" cx="190" cy="118" r="3" fill="#298dff"/><circle class="a-pulse" style="animation-delay:.6s" cx="50" cy="118" r="3" fill="#298dff"/><circle class="a-pulse" style="animation-delay:1.2s" cx="120" cy="144" r="3" fill="#298dff"/>
+            </svg>
+          </div>
+          <div class="service__foot"><span class="service__mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="service__brand">Lorem Ipsum</span></div>
+        </article>
+      </div>
+
+      <!-- 02 -->
+      <div class="tl__item tl__item--l reveal">
+        <article class="service">
+          <div class="service__head"><span class="service__num">02</span><h3 class="service__title" data-shuffle>AI-Ready Data Foundation</h3></div>
+          <p class="service__desc">Build trusted, connected and AI-ready data ecosystems that fuel better decisions and more reliable outcomes.</p>
+          <div class="service__viz">
+            <svg class="iso" viewBox="0 0 240 168" fill="none">
+              <g stroke="#298dff" stroke-width="1.3"><path d="M120 40 L184 62 L120 84 L56 62 Z"/><path d="M120 70 L184 92 L120 114 L56 92 Z" opacity=".6"/><path d="M120 100 L184 122 L120 144 L56 122 Z" opacity=".35"/><path d="M56 62 L56 122" opacity=".3"/><path d="M184 62 L184 122" opacity=".3"/></g>
+              <path class="a-scan" d="M56 62 L120 40 L184 62" stroke="#93c9ff" stroke-width="1.7"/>
+              <circle class="a-pulse" cx="120" cy="40" r="3" fill="#298dff"/>
+            </svg>
+          </div>
+          <div class="service__foot"><span class="service__mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="service__brand">Lorem Ipsum</span></div>
+        </article>
+      </div>
+
+      <!-- 03 -->
+      <div class="tl__item tl__item--r reveal">
+        <article class="service">
+          <div class="service__head"><span class="service__num">03</span><h3 class="service__title" data-shuffle>Intelligent Enterprise Platforms</h3></div>
+          <p class="service__desc">Modernize enterprise platforms with AI-powered capabilities that streamline operations and enhance customer experiences.</p>
+          <div class="service__viz">
+            <svg class="iso" viewBox="0 0 240 168" fill="none">
+              <g stroke="#33455f" stroke-width="1"><path d="M120 98 L184 122 L120 146 L56 122 Z"/><path d="M88 110 L152 134"/><path d="M152 110 L88 134"/><path d="M120 98 L120 146"/><path d="M56 122 L184 122"/></g>
+              <g class="a-rise" stroke="#298dff" stroke-width="1.5"><path d="M120 58 L146 71 L120 84 L94 71 Z"/><path d="M94 71 L94 90 L120 103 L146 90 L146 71"/><path d="M120 84 L120 103"/></g>
+              <circle class="a-pulse" cx="120" cy="122" r="3" fill="#298dff"/>
+            </svg>
+          </div>
+          <div class="service__foot"><span class="service__mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="service__brand">Lorem Ipsum</span></div>
+        </article>
+      </div>
+
+      <!-- 04 -->
+      <div class="tl__item tl__item--l reveal">
+        <article class="service">
+          <div class="service__head"><span class="service__num">04</span><h3 class="service__title" data-shuffle>AI Assurance</h3></div>
+          <p class="service__desc">Deploy AI responsibly with governance, observability, compliance and security built into every implementation.</p>
+          <div class="service__viz">
+            <svg class="iso" viewBox="0 0 240 168" fill="none">
+              <ellipse cx="120" cy="86" rx="72" ry="30" stroke="#33455f" stroke-width="1" stroke-dasharray="4 6"><animateTransform attributeName="transform" type="rotate" from="0 120 86" to="360 120 86" dur="22s" repeatCount="indefinite"/></ellipse>
+              <ellipse cx="120" cy="86" rx="52" ry="20" stroke="#298dff" stroke-width="1" stroke-dasharray="3 6" opacity=".7"><animateTransform attributeName="transform" type="rotate" from="360 120 86" to="0 120 86" dur="16s" repeatCount="indefinite"/></ellipse>
+              <path d="M120 56 L142 65 L142 86 C142 102 132 112 120 118 C108 112 98 102 98 86 L98 65 Z" stroke="#298dff" stroke-width="1.5"/>
+              <path d="M110 86 L118 94 L132 78" stroke="#298dff" stroke-width="1.7"/>
+              <g><circle cx="192" cy="86" r="3.5" fill="#298dff"/><animateTransform attributeName="transform" type="rotate" from="0 120 86" to="360 120 86" dur="10s" repeatCount="indefinite"/></g>
+            </svg>
+          </div>
+          <div class="service__foot"><span class="service__mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="service__brand">Lorem Ipsum</span></div>
+        </article>
+      </div>
+
+      <!-- 05 -->
+      <div class="tl__item tl__item--r reveal">
+        <article class="service">
+          <div class="service__head"><span class="service__num">05</span><h3 class="service__title" data-shuffle>AI-Augmented Engineering</h3></div>
+          <p class="service__desc">Accelerate development with AI-powered engineering that improves speed, quality, and innovation.</p>
+          <div class="service__viz">
+            <svg class="iso" viewBox="0 0 240 168" fill="none">
+              <circle cx="120" cy="84" r="48" stroke="#33455f" stroke-width="1" stroke-dasharray="4 7"><animateTransform attributeName="transform" type="rotate" from="0 120 84" to="360 120 84" dur="18s" repeatCount="indefinite"/></circle>
+              <g class="a-float" stroke="#298dff" stroke-width="1.5"><path d="M120 66 L140 78 L120 90 L100 78 Z"/><path d="M100 78 L100 96 L120 108 L140 96 L140 78"/><path d="M120 90 L120 108"/></g>
+              <path class="a-pulse" d="M150 66 L166 84 L150 102" stroke="#298dff" stroke-width="1.6"/>
+              <path class="a-pulse" style="animation-delay:.5s" d="M90 66 L74 84 L90 102" stroke="#298dff" stroke-width="1.6"/>
+            </svg>
+          </div>
+          <div class="service__foot"><span class="service__mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="service__brand">Lorem Ipsum</span></div>
+        </article>
+      </div>
+
+      <!-- 06 -->
+      <div class="tl__item tl__item--l reveal">
+        <article class="service">
+          <div class="service__head"><span class="service__num">06</span><h3 class="service__title" data-shuffle>Enterprise Cloud</h3></div>
+          <p class="service__desc">Accelerate software delivery with AI-powered, reusable components and intelligent development ecosystems.</p>
+          <div class="service__viz">
+            <svg class="iso" viewBox="0 0 240 168" fill="none">
+              <g stroke="#298dff" stroke-width="1.5"><circle cx="104" cy="90" r="18"/><circle cx="134" cy="86" r="22"/><circle cx="120" cy="102" r="15"/></g>
+              <g class="a-rise" stroke="#93c9ff" stroke-width="1.4"><path d="M120 74 L134 82 L120 90 L106 82 Z"/><path d="M106 82 L106 94 L120 102 L134 94 L134 82"/></g>
+              <g><circle cx="120" cy="40" r="3" fill="#298dff"/><animateTransform attributeName="transform" type="rotate" from="0 120 90" to="360 120 90" dur="9s" repeatCount="indefinite"/></g>
+              <g><circle cx="120" cy="140" r="2.6" fill="#7fc0ff"/><animateTransform attributeName="transform" type="rotate" from="180 120 90" to="540 120 90" dur="9s" repeatCount="indefinite"/></g>
+            </svg>
+          </div>
+          <div class="service__foot"><span class="service__mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="service__brand">Lorem Ipsum</span></div>
+        </article>
+      </div>
+
+      <!-- 07 -->
+      <div class="tl__item tl__item--r reveal">
+        <article class="service">
+          <div class="service__head"><span class="service__num">07</span><h3 class="service__title" data-shuffle>Cyber Resilience</h3></div>
+          <p class="service__desc">Protect intelligent enterprises with resilient cybersecurity that safeguards applications, data, and AI systems.</p>
+          <div class="service__viz">
+            <svg class="iso" viewBox="0 0 240 168" fill="none">
+              <circle cx="120" cy="86" r="46" stroke="#33455f" stroke-width="1" stroke-dasharray="3 6"/>
+              <path d="M120 40 A46 46 0 0 1 166 86" stroke="#298dff" stroke-width="1.9"><animateTransform attributeName="transform" type="rotate" from="0 120 86" to="360 120 86" dur="6s" repeatCount="indefinite"/></path>
+              <rect x="102" y="84" width="36" height="28" rx="3" stroke="#298dff" stroke-width="1.5"/>
+              <path d="M108 84 v-8 a12 12 0 0 1 24 0 v8" stroke="#298dff" stroke-width="1.5"/>
+              <circle cx="120" cy="95" r="3.4" fill="#298dff"/><path d="M120 95 v8" stroke="#298dff" stroke-width="1.6"/>
+              <circle class="a-pulse" cx="120" cy="40" r="2.7" fill="#298dff"/><circle class="a-pulse" style="animation-delay:.7s" cx="166" cy="86" r="2.7" fill="#298dff"/><circle class="a-pulse" style="animation-delay:1.4s" cx="74" cy="86" r="2.7" fill="#298dff"/>
+            </svg>
+          </div>
+          <div class="service__foot"><span class="service__mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="service__brand">Lorem Ipsum</span></div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ [Lorem] Benefits ============ -->
+<section class="section" style="padding-top:0">
+  <div class="container benefits">
+    <div class="bcard reveal">
+      <h3 class="h3" data-shuffle>Lorem ipsum dolor sit</h3>
+      <ul>
+        <li><span class="dot"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Lorem ipsum dolor sit amet consectetur</li>
+        <li><span class="dot"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Adipiscing elit sed do eiusmod tempor</li>
+        <li><span class="dot"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Incididunt ut labore et dolore magna</li>
+        <li><span class="dot"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Aliqua ut enim ad minim veniam quis</li>
+      </ul>
+    </div>
+    <div class="bcard reveal">
+      <h3 class="h3" data-shuffle>Consectetur adipiscing</h3>
+      <ul>
+        <li><span class="dot"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Nostrud exercitation ullamco laboris</li>
+        <li><span class="dot"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Nisi ut aliquip ex ea commodo consequat</li>
+        <li><span class="dot"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Duis aute irure dolor in reprehenderit</li>
+        <li><span class="dot"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Voluptate velit esse cillum dolore eu</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ [Lorem] Tabs ============ -->
+<section class="section curtain-sec" id="curtainSec">
+  <div class="curtain" aria-hidden="true">
+    <span class="curtain__half curtain__half--l"></span>
+    <span class="curtain__half curtain__half--r"></span>
+  </div>
+  <div class="container">
+    <div class="industry__head">
+      <span class="eyebrow" data-scramble>Lorem ipsum</span>
+      <h2 class="h2 h2--center" style="margin-top:1rem" data-reveal-lines>Sed ut perspiciatis unde omnis</h2>
+    </div>
+    <div class="tabs">
+      <div class="tabs__nav" id="tabsNav">
+        <button class="tab active" data-tab="0"><span class="tab__name">Lorem Ipsum</span><span class="tab__hint">Dolor</span></button>
+        <button class="tab" data-tab="1"><span class="tab__name">Consectetur</span><span class="tab__hint">Adipiscing</span></button>
+        <button class="tab" data-tab="2"><span class="tab__name">Sed Eiusmod</span><span class="tab__hint">Tempor</span></button>
+        <button class="tab" data-tab="3"><span class="tab__name">Ut Labore</span><span class="tab__hint">Magna</span></button>
+      </div>
+      <div class="tabs__panel" id="tabsPanel">
+        <div class="panel__glow"></div>
+        <div class="panel active" data-panel="0">
+          <h3>Lorem Ipsum</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+          <ul>
+            <li><span class="chk"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Ut enim ad minim veniam quis</li>
+            <li><span class="chk"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Nostrud exercitation ullamco</li>
+            <li><span class="chk"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Laboris nisi ut aliquip ex ea</li>
+          </ul>
+        </div>
+        <div class="panel" data-panel="1">
+          <h3>Consectetur</h3>
+          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla.</p>
+          <ul>
+            <li><span class="chk"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Excepteur sint occaecat cupidatat</li>
+            <li><span class="chk"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Non proident sunt in culpa qui</li>
+            <li><span class="chk"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Officia deserunt mollit anim id</li>
+          </ul>
+        </div>
+        <div class="panel" data-panel="2">
+          <h3>Sed Eiusmod</h3>
+          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+          <ul>
+            <li><span class="chk"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Totam rem aperiam eaque ipsa</li>
+            <li><span class="chk"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Quae ab illo inventore veritatis</li>
+            <li><span class="chk"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Et quasi architecto beatae vitae</li>
+          </ul>
+        </div>
+        <div class="panel" data-panel="3">
+          <h3>Ut Labore</h3>
+          <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit consequuntur.</p>
+          <ul>
+            <li><span class="chk"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Magni dolores eos qui ratione</li>
+            <li><span class="chk"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Voluptatem sequi nesciunt neque</li>
+            <li><span class="chk"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Porro quisquam est qui dolorem</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ [Lorem] CTA cards ============ -->
+<section class="section">
+  <div class="container">
+    <div class="industry__head" style="text-align:left;margin-bottom:clamp(32px,4vw,52px)">
+      <span class="eyebrow" data-scramble>Lorem ipsum</span>
+      <h2 class="h2" style="margin-top:1rem" data-reveal-lines>Neque porro quisquam</h2>
+    </div>
+    <div class="acc" id="accList">
+      <a class="acc-row reveal" href="#">
+        <span class="acc-row__marker" aria-hidden="true"></span>
+        <span class="acc-row__lead">
+          <span class="acc-row__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7l8-4 8 4-8 4-8-4zM4 12l8 4 8-4M4 17l8 4 8-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <h3 class="acc-row__title" data-shuffle>Lorem ipsum</h3>
+        </span>
+        <span class="acc-row__body">
+          <span class="acc-row__desc">Dolor sit amet consectetur adipiscing elit sed do eiusmod tempor.</span>
+          <span class="acc-row__cta"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Learn more</span></span>
+        </span>
+      </a>
+      <a class="acc-row reveal" href="#">
+        <span class="acc-row__marker" aria-hidden="true"></span>
+        <span class="acc-row__lead">
+          <span class="acc-row__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <h3 class="acc-row__title" data-shuffle>Consectetur</h3>
+        </span>
+        <span class="acc-row__body">
+          <span class="acc-row__desc">Incididunt ut labore et dolore magna aliqua ut enim ad minim.</span>
+          <span class="acc-row__cta"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Learn more</span></span>
+        </span>
+      </a>
+      <a class="acc-row reveal" href="#">
+        <span class="acc-row__marker" aria-hidden="true"></span>
+        <span class="acc-row__lead">
+          <span class="acc-row__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3 7h18v10H3zM3 10h18M7 14h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <h3 class="acc-row__title" data-shuffle>Adipiscing</h3>
+        </span>
+        <span class="acc-row__body">
+          <span class="acc-row__desc">Veniam quis nostrud exercitation ullamco laboris nisi ut aliquip.</span>
+          <span class="acc-row__cta"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Learn more</span></span>
+        </span>
+      </a>
+      <a class="acc-row reveal" href="#">
+        <span class="acc-row__marker" aria-hidden="true"></span>
+        <span class="acc-row__lead">
+          <span class="acc-row__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11a3 3 0 100-6 3 3 0 000 6zM3 20a6 6 0 0112 0M17 7a3 3 0 010 6M21 20a6 6 0 00-4-5.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <h3 class="acc-row__title" data-shuffle>Eiusmod tempor</h3>
+        </span>
+        <span class="acc-row__body">
+          <span class="acc-row__desc">Ex ea commodo consequat duis aute irure dolor in reprehenderit.</span>
+          <span class="acc-row__cta"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Learn more</span></span>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ [Lorem] Featured ============ -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="industry__head" style="text-align:left;margin-bottom:clamp(28px,3vw,44px)">
+      <span class="eyebrow" data-scramble>Lorem</span>
+      <h2 class="h2" style="margin-top:1rem;font-size:clamp(1.8rem,4vw,2.8rem)" data-reveal-lines>Insights</h2>
+    </div>
+    <div class="featured__grid">
+      <a class="feat-main reveal" href="#">
+        <div class="feat-cover"></div>
+        <div class="feat-body">
+          <span class="tag">Lorem</span>
+          <h3>Lorem ipsum dolor sit amet consectetur adipiscing elit</h3>
+          <span class="play"><span class="ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M2 1l9 5-9 5z"/></svg></span>Watch now</span>
+        </div>
+      </a>
+      <div class="feat-side-stack">
+        <a class="feat-side reveal" href="#">
+          <div class="feat-cover"></div>
+          <div class="feat-body"><span class="tag">Ipsum</span><h3>Sed do eiusmod tempor incididunt</h3></div>
+        </a>
+        <a class="feat-side reveal" href="#">
+          <div class="feat-cover"></div>
+          <div class="feat-body"><span class="tag">Dolor</span><h3>Ut labore et dolore magna aliqua</h3></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Stay in the loop ============ -->
+<section class="home-loop">
+  <div class="container">
+    <div class="home-loop__inner">
+      <h2 class="home-loop__head" data-hero-reveal>Stay in the
+        <svg class="home-loop__bell" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 53 60" fill="none" aria-hidden="true"><path d="M21.8549 50.8588C21.8549 53.3347 23.9373 55.3893 26.4902 55.3893C29.0431 55.3893 31.1251 53.3347 31.1251 50.8588H35.7803C35.7803 55.9335 31.5608 60 26.4902 60C21.4196 60 17.2001 55.9335 17.2001 50.8588H21.8549ZM4.65486 44.1356H48.3448V33.7465H53V48.7459H0V33.7465H4.65486V44.1356ZM26.5006 0C38.5646 9.83889e-05 48.3443 9.68624 48.3444 21.6348L48.3448 33.7465H43.423L43.4226 21.6348C43.4225 12.3785 35.8463 4.8748 26.5006 4.8747C17.1548 4.8748 9.57821 12.3785 9.57815 21.6348L9.57852 33.7465H4.65671L4.65634 21.6348C4.65641 9.68624 14.4366 9.88151e-05 26.5006 0Z" fill="currentColor"/></svg>
+        loop</h2>
+      <div class="home-loop__sub reveal"><span class="home-loop__dot"></span>Events, blogs, press, videos, podcasts, and livestreams—all in one place</div>
+      <form class="nl-form reveal" onsubmit="return false">
+        <input type="email" placeholder="Enter your email" aria-label="Email" required>
+        <button class="btn btn--blue" type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ Footer (sui.io treatment) ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__brand-row">
+      <a href="/" class="nav__logo"><span class="brand"><svg class="brand__mark" viewBox="0 0 44 24" fill="none"><path d="M22 12c2.1-3.1 4.4-5.1 7.6-5.1a5.1 5.1 0 010 10.2c-3.2 0-5.5-2-7.6-5.1zm0 0c-2.1 3.1-4.4 5.1-7.6 5.1a5.1 5.1 0 010-10.2c3.2 0 5.5 2 7.6 5.1z" stroke="currentColor" stroke-width="2.3" stroke-linejoin="round"/></svg><span class="brand__name">Infinite</span></span></a>
+      <p class="footer__tagline">Enterprise AI Execution. Operationalizing AI across applications, platforms, data and workflows. <span class="accent">#RealizeTheAIPromise</span></p>
+    </div>
+
+    <div class="footer__dash" aria-hidden="true"></div>
+
+    <div class="footer__cols">
+      <div class="fcol">
+        <div class="fcol__head"><h3 class="footer_heading">What We Do/</h3><span class="fcol__plus" aria-hidden="true"></span></div>
+        <ul class="footer_list">
+          <li><a class="footer_link" href="#services"><span class="footer_svg" aria-hidden="true"><svg viewBox="0 0 22 9" fill="none"><path d="M1 0.125V7.42188H22" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="footer_link-text" data-shuffle>Enterprise AI</span></a></li>
+          <li><a class="footer_link" href="#services"><span class="footer_svg" aria-hidden="true"><svg viewBox="0 0 22 9" fill="none"><path d="M1 0.125V7.42188H22" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="footer_link-text" data-shuffle>AI-Ready Data Foundation</span></a></li>
+          <li><a class="footer_link" href="#services"><span class="footer_svg" aria-hidden="true"><svg viewBox="0 0 22 9" fill="none"><path d="M1 0.125V7.42188H22" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="footer_link-text" data-shuffle>Intelligent Enterprise Platforms</span></a></li>
+          <li><a class="footer_link" href="#services"><span class="footer_svg" aria-hidden="true"><svg viewBox="0 0 22 9" fill="none"><path d="M1 0.125V7.42188H22" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="footer_link-text" data-shuffle>AI Assurance</span></a></li>
+          <li><a class="footer_link" href="#services"><span class="footer_svg" aria-hidden="true"><svg viewBox="0 0 22 9" fill="none"><path d="M1 0.125V7.42188H22" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="footer_link-text" data-shuffle>AI-Augmented Engineering</span></a></li>
+          <li><a class="footer_link" href="#services"><span class="footer_svg" aria-hidden="true"><svg viewBox="0 0 22 9" fill="none"><path d="M1 0.125V7.42188H22" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="footer_link-text" data-shuffle>Enterprise Cloud</span></a></li>
+          <li><a class="footer_link" href="#services"><span class="footer_svg" aria-hidden="true"><svg viewBox="0 0 22 9" fill="none"><path d="M1 0.125V7.42188H22" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="footer_link-text" data-shuffle>Cyber Resilience</span></a></li>
+        </ul>
+      </div>
+
+      <div class="fcol">
+        <div class="fcol__head"><h3 class="footer_heading">Who We Serve/</h3><span class="fcol__plus" aria-hidden="true"></span></div>
+        <ul class="footer_list">
+          <li><a class="footer_link" href="#"><span class="footer_svg" aria-hidden="true"><svg viewBox="0 0 22 9" fill="none"><path d="M1 0.125V7.42188H22" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="footer_link-text" data-shuffle>Financial Services</span></a></li>
+          <li><a class="footer_link" href="#"><span class="footer_svg" aria-hidden="true"><svg viewBox="0 0 22 9" fill="none"><path d="M1 0.125V7.42188H22" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="footer_link-text" data-shuffle>Healthcare &amp; Life Sciences</span></a></li>
+          <li><a class="footer_link" href="#"><span class="footer_svg" aria-hidden="true"><svg viewBox="0 0 22 9" fill="none"><path d="M1 0.125V7.42188H22" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="footer_link-text" data-shuffle>Manufacturing</span></a></li>
+          <li><a class="footer_link" href="#"><span class="footer_svg" aria-hidden="true"><svg viewBox="0 0 22 9" fill="none"><path d="M1 0.125V7.42188H22" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="footer_link-text" data-shuffle>Retail &amp; Consumer</span></a></li>
+          <li><a class="footer_link" href="#"><span class="footer_svg" aria-hidden="true"><svg viewBox="0 0 22 9" fill="none"><path d="M1 0.125V7.42188H22" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="footer_link-text" data-shuffle>Operations</span></a></li>
+          <li><a class="footer_link" href="#"><span class="footer_svg" aria-hidden="true"><svg viewBox="0 0 22 9" fill="none"><path d="M1 0.125V7.42188H22" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="footer_link-text" data-shuffle>Customer Experience</span></a></li>
+        </ul>
+      </div>
+
+      <div class="fcol">
+        <div class="fcol__head"><h3 class="footer_heading">Company/</h3><span class="fcol__plus" aria-hidden="true"></span></div>
+        <ul class="footer_list">
+          <li><a class="footer_link" href="#"><span class="footer_svg" aria-hidden="true"><svg viewBox="0 0 22 9" fill="none"><path d="M1 0.125V7.42188H22" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="footer_link-text" data-shuffle>About</span></a></li>
+          <li><a class="footer_link" href="#"><span class="footer_svg" aria-hidden="true"><svg viewBox="0 0 22 9" fill="none"><path d="M1 0.125V7.42188H22" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="footer_link-text" data-shuffle>Partnerships</span></a></li>
+          <li><a class="footer_link" href="#"><span class="footer_svg" aria-hidden="true"><svg viewBox="0 0 22 9" fill="none"><path d="M1 0.125V7.42188H22" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="footer_link-text" data-shuffle>Why Infinite</span></a></li>
+          <li><a class="footer_link" href="#"><span class="footer_svg" aria-hidden="true"><svg viewBox="0 0 22 9" fill="none"><path d="M1 0.125V7.42188H22" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="footer_link-text" data-shuffle>Careers</span></a></li>
+          <li><a class="footer_link" href="#"><span class="footer_svg" aria-hidden="true"><svg viewBox="0 0 22 9" fill="none"><path d="M1 0.125V7.42188H22" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="footer_link-text" data-shuffle>Insights</span></a></li>
+          <li><a class="footer_link" href="#"><span class="footer_svg" aria-hidden="true"><svg viewBox="0 0 22 9" fill="none"><path d="M1 0.125V7.42188H22" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="footer_link-text" data-shuffle>Contact</span></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__dash" aria-hidden="true"></div>
+
+    <div class="footer__bottom">
+      <div class="footer__social">
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14zM7.12 20.45H3.55V9h3.57zM22.22 0H1.77C.8 0 0 .78 0 1.74v20.52C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.74V1.74C24 .78 23.2 0 22.22 0z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3.02 3.02 0 00-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.51A3.02 3.02 0 00.5 6.2C0 8.09 0 12 0 12s0 3.91.5 5.8a3.02 3.02 0 002.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3.02 3.02 0 002.12-2.14C24 15.91 24 12 24 12s0-3.91-.5-5.8zM9.6 15.6V8.4l6.2 3.6z"/></svg></a>
+      </div>
+      <div class="footer__copyright">©2026 Infinite. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /page-wrapper -->
+
+<!-- ============ Overscroll reveal panel ============ -->
+<div class="scroll_expander" id="scrollExpander" aria-hidden="true">
+  <div class="scroll_expander__inner">
+    <img class="rebound_effect" src="assets/img/footerextra.jpeg" alt="" aria-hidden="true">
+    <div class="scroll_expander__brand">
+      <svg class="brand__mark" viewBox="0 0 44 24" fill="none"><path d="M22 12c2.1-3.1 4.4-5.1 7.6-5.1a5.1 5.1 0 010 10.2c-3.2 0-5.5-2-7.6-5.1zm0 0c-2.1 3.1-4.4 5.1-7.6 5.1a5.1 5.1 0 010-10.2c3.2 0 5.5 2 7.6 5.1z" stroke="currentColor" stroke-width="2.3" stroke-linejoin="round"/></svg>
+      <span>Realize the AI Promise</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /rebounce-effect -->
+
+<script src="assets/js/gsap/gsap.min.js"></script>
+<script src="assets/js/gsap/ScrollTrigger.min.js"></script>
+<script src="assets/js/gsap/ScrambleTextPlugin.min.js"></script>
+<script src="assets/js/gsap/DrawSVGPlugin.min.js"></script>
+<script src="assets/js/gsap/CustomEase.min.js"></script>
+<script src="assets/js/script.js"></script>
+<script src="assets/js/gsap-init.js"></script>
+<script>
+/* Dark/light theme toggle — default dark, remembers choice */
+(function(){
+  var root = document.documentElement, KEY = 'infinite-theme';
+  var btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  btn.addEventListener('click', function(){
+    var isLight = root.classList.toggle('light');
+    try { localStorage.setItem(KEY, isLight ? 'light' : 'dark'); } catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
